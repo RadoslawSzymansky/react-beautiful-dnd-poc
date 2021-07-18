@@ -1,6 +1,6 @@
-export const mainFuse = {
+const mainFuse = {
   name: 'Main fuse',
-  id: "1231234",
+  id: "main-fuse",
   limit: 88,
   fallback: 60,
   type: "fuse",
@@ -10,39 +10,39 @@ export const mainFuse = {
       name: 'SiteLoad 1',
       type: 'siteload',
       fallback: 12,
-      parent: '1231234'
+      parent: 'main-fuse'
     },
     {
       id: 'sl-2',
       name: 'SiteLoad 2',
       type: 'siteload',
       fallback: 14,
-      parent: '1231234'
+      parent: 'main-fuse'
     },
     {
       id: 'cs-1',
       name: 'Charging station 1',
       type: 'charging-station',
       fallback: 12,
-      parent: '1231234'
+      parent: 'main-fuse'
     },
     {
       id: 'cs-2',
       name: 'Charging station 2',
       type: 'charging-station',
       fallback: 12,
-      parent: '1231234'
+      parent: 'main-fuse'
     },
     {
       id: 'f-1',
       name: 'Fuse 1',
       type: 'fuse',
       fallback: 12,
-      parent: '1231234'
+      parent: 'main-fuse'
     },
     {
-      id: 'cs-2',
-      name: 'Chargin Station 2',
+      id: 'cs-3',
+      name: 'Chargin Station 3',
       type: 'charging-station',
       fallback: 12,
       parent: 'f-1'
@@ -54,5 +54,14 @@ export const mainFuse = {
       fallback: 12,
       parent: 'f-1'
     },
+    {
+      id: 'sl-4',
+      name: 'SiteLoad 4',
+      type: 'siteload',
+      fallback: 12,
+      parent: 'sl-3'
+    },
   ]
 };
+
+export default mainFuse;

@@ -1,22 +1,12 @@
 import { useState } from 'react';
 import { StyledDepotSetup } from "./depot-setup.styled";
-import mainFuse from '../../app/initial-fuse';
+import initialData from '../../app/initial-data';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Column } from '..';
-import { StyledDepotItem } from '../depot-item/depot-item.styled';
 
 const DepotSetup = () => {
-
-  // to do
-  // convert children to object with ids as key
-
-  const [data, setData] = useState(mainFuse);
-  const {children, id: mainFuseId} = data;
-
-  const columns =  Object.fromEntries(
-    children.map(column => [column.id, column])
-  )
-
+  const [data, setData] = useState(initialData);
+  const {columnOrder, columns, tasks} = data;
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -65,15 +55,13 @@ const DepotSetup = () => {
 
   return (
     <StyledDepotSetup>
-      <StyledDepotItem>{mainFuse.name}</StyledDepotItem>
       <DragDropContext onDragEnd={onDragEnd}>
         {
-          Object.values(children).map( ({id}, index) => {
-            const column = columns[id];
+          columnOrder.map(columnId => {
+            const column = columns[columnId];
+            const tasksList = column.taskIds.map(taskId => tasks[taskId]);
 
-            const subColumns = children.filter(subColumn => column.id === subColumn.parent ? columns[subColumn.id] : null);
-
-            return column.parent === mainFuseId ? <Column key={column.id} column={column} subColumns={children} index={index}/> : null;
+            return <Column key={column.id} column={column} tasks={tasksList} />
           })
         }
       </DragDropContext>
